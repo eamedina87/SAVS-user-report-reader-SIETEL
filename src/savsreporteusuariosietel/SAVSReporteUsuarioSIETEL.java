@@ -26,7 +26,7 @@ import org.xml.sax.SAXException;
  * @author erick.medina
  */
 public class SAVSReporteUsuarioSIETEL {
-public static final String fileName = "D:\\Documentos\\Inspeccion AVS\\2017-05 ClaroTv\\Usuarios\\SIETEL_detalle abonados.xls";
+public static final String fileName = "YOUR_XLS_FILE_NAME";
     
     
     
@@ -44,7 +44,6 @@ public static final String fileName = "D:\\Documentos\\Inspeccion AVS\\2017-05 C
             HSSFSheet sheet = wb.getSheetAt(2);
             int rows = sheet.getPhysicalNumberOfRows();
             ArrayList<Usuario> usuarios = new ArrayList<>();
-            //HashMap<String, String> ubicacion_parroquia = new HashMap<>();
             HashMap<String, String> ubicacion_ciudad = new HashMap<>();
        
             for (int r = 1; r < rows; r++) {
@@ -73,7 +72,6 @@ public static final String fileName = "D:\\Documentos\\Inspeccion AVS\\2017-05 C
                     usuarios.add(usuario);
                           
                     ubicacion_ciudad.put(ciudad, provincia);
-                    //ubicacion_parroquia.put(parroquia, ciudad);
                     
             }
             
@@ -88,26 +86,13 @@ public static final String fileName = "D:\\Documentos\\Inspeccion AVS\\2017-05 C
                 String mProvincia = (String) pair.getValue();
                 int mContJuridica = 0;
                 int mContNatural = 0;
-                /*
-                TreeMap<String, String> mSortedParroquias = new TreeMap<>(ubicacion_parroquia);   
-                Iterator it_parroquias = mSortedParroquias.entrySet().iterator();
                 
-                while (it_parroquias.hasNext()) {
-                    Map.Entry pair_parroquias = (Map.Entry)it_parroquias.next();
-                    String mParroquia = (String) pair_parroquias.getKey();
-                    String mCiudad2 = (String) pair_parroquias.getValue();
-                  */  
                 for (Usuario usuario:usuarios){
                     if (!usuario.getCiudad().equals(mCiudad)) continue;
                     mContTotal++;
-                    mContJuridica=mContJuridica+usuario.getJuridica();
-                    mContNatural=mContNatural+usuario.getNatural();
-                                   
-                //}
-                    
+                    mContJuridica+=usuario.getJuridica();
+                    mContNatural+=usuario.getNatural();
                 }
-                
-                
                 
                 System.out.println(mProvincia+";"+mCiudad+";"+mContJuridica+";"+mContNatural);
                 
